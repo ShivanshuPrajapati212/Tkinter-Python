@@ -46,7 +46,7 @@ for txt_name in txt_names:
     with open(txt_path,'r') as f:
         content = f.read()
     text_label = Label(text=content,font='comicsansms 12',padx=50,pady=50)
-    text_label.pack(side="right",anchor='center')
+    text_label.pack(side="top",anchor='center')
     
     
 

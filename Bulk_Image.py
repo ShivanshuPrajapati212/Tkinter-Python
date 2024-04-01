@@ -1,44 +1,40 @@
-import tkinter as tk
-from PIL import Image, ImageTk
+from tkinter import *
 import os
+from PIL import Image , ImageTk
 
-def bulk_pack_images(directory):
-    # Get a list of all image files in the directory
-    image_files = [file for file in os.listdir(directory) if file.endswith(('.jpg', '.jpeg', '.png', '.gif'))]
+# Base 
 
-    # Create a canvas to display the images
-    canvas = tk.Canvas(root)
-    canvas.pack()
+root = Tk()
 
-    # Loop through the image files and pack them onto the canvas
-    for i, image_file in enumerate(image_files):
-        # Open the image file using PIL
-        image = Image.open(os.path.join(directory, image_file))
+root.title("Newspaper GUI by ShivanshuWeb")
+root.geometry("1080x720")
 
-        # Resize the image if needed
-        if image.width > 400 or image.height > 400:
-            image.thumbnail((400, 400))
+# Neccesary Variables 
 
-        # Convert the image to Tkinter-compatible format
-        tk_image = ImageTk.PhotoImage(image)
+directory = 'D:\\Code Playground\\Tkinter Python\\Images'
+txt_directory = 'D:\\Code Playground\\Tkinter Python\\Texts'
+files = os.listdir('D:\\Code Playground\\Tkinter Python\\Images')
+txts = os.listdir('D:\\Code Playground\\Tkinter Python\\Texts')
+i = 0
+s = 0
+tk_images =[]
 
-        # Create a label to display the image on the canvas
-        label = tk.Label(canvas, image=tk_image)
-        label.image = tk_image  # Keep a reference to the image to prevent garbage collection
-        label.pack()
+image_paths = [os.path.join(directory, item) for item in files if os.path.isfile(os.path.join(directory, item))]
+txt_names = [file for file in os.listdir(txt_directory) if file.endswith('.txt')]
 
-        # Add some spacing between images
-        canvas.create_line(0, (i + 1) * 400, 800, (i + 1) * 400)
+# Title 
 
-# Create the Tkinter window
-root = tk.Tk()
-root.title("Bulk Image Packer")
+title_label = Label(text="Newspaper GUI by ShivanshuWeb",bg='blueviolet',fg='white',font='comicsansms 15 bold',padx=2000,pady=5)
+title_label.pack(anchor='center',side='top',fill=Y)
 
-# Specify the directory containing the images
-image_directory = "D:/Code Playground/Tkinter Python"
 
-# Call the function to bulk pack the images onto the canvas
-bulk_pack_images(image_directory)
+# Main Content 
 
-# Start the Tkinter event loop
-root.mainloop()
+for image_path in image_paths:
+    image = Image.open(image_path)
+    image =  image.resize((100,100),Image.Resampling.BICUBIC)
+    tk_image = ImageTk.PhotoImage(image)
+    tk_images.append(tk_image)
+
+for tk_image in tk_images:
+    label = Label(root, image=tk_image)
