@@ -8,6 +8,9 @@ root = Tk()
 
 root.title("Newspaper GUI by ShivanshuWeb")
 root.geometry("1080x720")
+root.minsize(1080,720)
+root.maxsize(1080,720)
+
 
 # Neccesary Variables 
 
@@ -27,6 +30,11 @@ txt_names = [file for file in os.listdir(txt_directory) if file.endswith('.txt')
 title_label = Label(text="Newspaper GUI by ShivanshuWeb",bg='blueviolet',fg='white',font='comicsansms 15 bold',padx=2000,pady=5)
 title_label.pack(anchor='center',side='top',fill=Y)
 
+# Frame 
+f1 = Frame(root)
+f1.pack(side=LEFT,fill=Y)
+f2 = Frame(root)
+f2.pack(side=LEFT,fill=X,padx=100,pady=20,anchor='n')
 
 # Main Content 
 
@@ -37,7 +45,7 @@ for image_path in image_paths:
     tk_images.append(tk_image)
 
 for tk_image in tk_images:
-    label = Label(root, image=tk_image)
+    label = Label(f1, image=tk_image)
     label.pack(anchor='nw',padx=50,pady=50)
 
 
@@ -45,7 +53,7 @@ for txt_name in txt_names:
     txt_path = os.path.join(txt_directory, txt_name)
     with open(txt_path,'r') as f:
         content = f.read()
-    text_label = Label(text=content,font='comicsansms 12',padx=50,pady=50)
+    text_label = Label(f2, text=content,font='comicsansms 15',padx=50,pady=85)
     text_label.pack(side="top",anchor='center')
     
     
